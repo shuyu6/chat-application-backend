@@ -1,0 +1,5 @@
+server:
+  port: 8660
+#spring:
+#  main:
+#    web-application-type: none
