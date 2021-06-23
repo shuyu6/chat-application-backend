@@ -1,0 +1,37 @@
+DROP TABLE IF EXISTS [dbo].[chat_user]
+CREATE TABLE [dbo].[chat_user](
+	[user_id] [numeric](18, 0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[username] [nvarchar](50) NOT NULL,
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[chat_room](
+	[chat_room_id] [numeric](18, 0) NOT NULL IDENTITY(1,1) PRIMARY KEY
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[chat_message](
+	[message_id] [numeric](18, 0) NOT NULL IDENTITY(1,1) PRIMARY KEY ,
+	[chat_room_id] [numeric](18, 0) NOT NULL,
+	[sender_id] [numeric](18, 0) NOT NULL,
+	[content] [nvarchar](256) NOT NULL,
+	[created_timestamp] datetime2 default GETDATE(),
+	CONSTRAINT FK_chat_message_chat_room FOREIGN KEY ([chat_room_id]) REFERENCES [dbo].[chat_room]([chat_room_id]),
+	CONSTRAINT FK_chat_message_sender_id FOREIGN KEY ([sender_id]) REFERENCES [dbo].[chat_user]([user_id])
+)ON [PRIMARY]
+GO
+
+
+DROP TABLE IF EXISTS [dbo].[user_chat_room]
+CREATE TABLE [dbo].[user_chat_room](
+	[user_id] [numeric](18, 0) NOT NULL,
+	[chat_room_id] [numeric](18, 0) NOT NULL,
+	CONSTRAINT PK_user_chat_room PRIMARY KEY NONCLUSTERED ([User_Id], [chat_room_id]),
+	CONSTRAINT FK_user_chat_room_chat_room FOREIGN KEY ([chat_room_id]) REFERENCES [dbo].[chat_room]([chat_room_id]),
+	CONSTRAINT FK_user_chat_room_user FOREIGN KEY ([user_id]) REFERENCES [dbo].[chat_user]([user_id])
+) ON [PRIMARY]
+GO
+
+
+
+

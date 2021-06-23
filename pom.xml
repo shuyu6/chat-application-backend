@@ -6,11 +6,50 @@
 
     <groupId>org.example</groupId>
     <artifactId>SpringBootWebSocket</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>SimpleSpringBootWebSocket</module>
+        <module>simple-chat-application-domain</module>
+        <module>simple-chat-application-rest</module>
+        <module>simple-chat-application-websocket</module>
+    </modules>
 
     <properties>
+        <!--Others-->
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <velocity.version>2.1</velocity.version>
+        <velocity.tools.version>3.0</velocity.tools.version>
+        <lombok.version>1.18.18</lombok.version>
+        <jackson.version>2.11.2</jackson.version>
+        <jdbc.version>9.1.0.jre11-preview</jdbc.version>
+        <swagger2.version>3.0.0</swagger2.version>
+        <swagger.ui.version>3.0.0</swagger.ui.version>
+        <springfox.version>3.0.0</springfox.version>
+        <fastJson.version>1.2.75</fastJson.version>
+        <json.version>20200518</json.version>
+        <common.version>4.4</common.version>
+        <redis.version>1.0.0</redis.version>
+        <common.lang.version>3.12.0</common.lang.version>
+        <spring.version>2.3.4.RELEASE</spring.version>
+        <spring.jdbc>1.0.5.RELEASE</spring.jdbc>
+        <spring.data>2021.0.0</spring.data>
+        <spring.data.jpa>2.3.4.RELEASE</spring.data.jpa>
+        <spring.security.oauth2>2.1.4.RELEASE</spring.security.oauth2>
+        <spring.security.jwt>1.0.4.RELEASE</spring.security.jwt>
+        <spring-cloud.version>Hoxton.SR11</spring-cloud.version>
+        <spring.swagger.openapi.version>1.5.2</spring.swagger.openapi.version>
+
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.coverage.jacoco.reportPath>${basedir}/target/jacoco.exec</sonar.coverage.jacoco.reportPath>
+
+        <axon.version>4.2.1</axon.version>
+        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
     </properties>
 
     <parent>
@@ -19,69 +58,129 @@
         <version>2.3.4.RELEASE</version>
         <relativePath/>
     </parent>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>sockjs-client</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>stomp-websocket</artifactId>
-            <version>2.3.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>3.3.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.1.1-1</version>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-websocket</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>javax.servlet</groupId>-->
-<!--            <artifactId>javax.servlet-api</artifactId>-->
-<!--            <version>3.1.0</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.google.code.gson</groupId>-->
-<!--            <artifactId>gson</artifactId>-->
-<!--        </dependency>-->
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <version>${spring.security.oauth2}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${spring.security.oauth2}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-jwt</artifactId>
+                <version>${spring.security.jwt}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${spring.swagger.openapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity.tools</groupId>
+                <artifactId>velocity-tools-generic</artifactId>
+                <version>${velocity.tools.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastJson.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.solderfield.core</groupId>
+                <artifactId>sess-redis</artifactId>
+                <version>${redis.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+            <dependency>
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>mssql-jdbc</artifactId>
+                <version>${jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-jdbc</artifactId>
+                <version>${spring.jdbc}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring.data.jpa}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.json/json -->
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>${json.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${common.lang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-bom</artifactId>
+                <version>${spring.data}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

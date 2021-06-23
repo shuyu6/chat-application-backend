@@ -1,0 +1,21 @@
+server:
+  port: 9002
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=ChefRecipe
+    username: oauth
+    password: oauth2
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    initialization-mode: never
+    platform: sqlserver
+  jpa:
+    generate-ddl: false # Whether to initialize the schema on startup
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+    hibernate:
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+#      ddl-auto: validate
+
+check-user-scopes: true
