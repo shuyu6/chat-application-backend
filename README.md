@@ -3,6 +3,7 @@
 2. Create tables by using the script in `sql` folder. Change database configuration in `application.yml` file for both 
    REST package and WebSocket package if needed.
 3. Start `simple-chat-application-rest` (PORT: 9001) and `simple-chat-application-websocket` (PORT: 9002)
+4. Frontend code can be found here [Frontend Code](https://github.com/shuyu6/chat-application-frontend)
 
 ## Screenshot 
 1. Login screen <br>
