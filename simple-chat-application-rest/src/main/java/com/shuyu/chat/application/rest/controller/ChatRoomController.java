@@ -1,15 +1,15 @@
 package com.shuyu.chat.application.rest.controller;
 
+import com.shuyu.chat.application.domain.model.ChatMessageModel;
+import com.shuyu.chat.application.rest.dto.ChatMessageDto;
 import com.shuyu.chat.application.rest.dto.ChatRoomIdDto;
 import com.shuyu.chat.application.rest.dto.ChatRoomIdInquiryDto;
 import com.shuyu.chat.application.rest.service.ChatRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * =============================================================================
@@ -31,5 +31,10 @@ public class ChatRoomController {
     public ChatRoomIdDto retrieveChatRoomId(@RequestBody ChatRoomIdInquiryDto chatRoomIdInquiryDto){
         BigDecimal chatRoomId = chatRoomService.findChatRoomBySenderIdAndReceiverId(chatRoomIdInquiryDto.getSenderId(), chatRoomIdInquiryDto.getReceiverId());
         return new ChatRoomIdDto(chatRoomId);
+    }
+
+    @GetMapping("/chat-history")
+    public ChatMessageDto retriveChatHistory(@RequestParam("chatRoomId") BigDecimal chatRoomId, @RequestParam("pageSize") int pageSize, @RequestParam("pageNo") int pageNo){
+        return chatRoomService.retrieveChatHistoryByChatRoomIdAndPageSizeAndPageNo(chatRoomId, pageSize, pageNo);
     }
 }

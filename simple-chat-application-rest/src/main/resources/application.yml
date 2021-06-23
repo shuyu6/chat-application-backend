@@ -15,7 +15,10 @@ spring:
         dialect: org.hibernate.dialect.SQLServer2012Dialect
     hibernate:
       naming:
+        format_sql: true
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
 #      ddl-auto: validate
+logging.level.org.hibernate.SQL: DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 check-user-scopes: true

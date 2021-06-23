@@ -30,4 +30,6 @@ public interface JpaUserChatRoomRepository extends JpaRepository<UserChatRoom, U
                 "and r.id.userId = :receiverId "
     )
     Optional<BigDecimal> findChatRoomIdBySenderIdAndReceiverId(@Param("senderId") BigDecimal senderId, @Param("receiverId") BigDecimal receiverId);
+
+
 }
