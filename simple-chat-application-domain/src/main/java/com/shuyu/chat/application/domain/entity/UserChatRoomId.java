@@ -2,6 +2,7 @@ package com.shuyu.chat.application.domain.entity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
  **/
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public class UserChatRoomId implements Serializable {
 
     @Column(name = "chat_room_id")

@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 @Builder
 public class Notification {
     private BigDecimal chatRoomId;
-    private BigDecimal receiverId;
     private BigDecimal senderId;
     private String senderUsername;
     private String content;

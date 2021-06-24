@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,5 +32,6 @@ public interface JpaUserChatRoomRepository extends JpaRepository<UserChatRoom, U
     )
     Optional<BigDecimal> findChatRoomIdBySenderIdAndReceiverId(@Param("senderId") BigDecimal senderId, @Param("receiverId") BigDecimal receiverId);
 
+    List<UserChatRoom> findByIdChatRoomIdAndIdUserIdNot(BigDecimal chatRoomId, BigDecimal senderId);
 
 }
